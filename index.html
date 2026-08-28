@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Ronin402 — AI Agents × x402 × RWAs</title>
+  <meta name="description" content="Ronin402 lets autonomous AI agents pay for quotes, data and execution via x402, while smart contracts handle limits, escrow and settlement — automated RWA trading without constant user approval. ETH-native, permissionless, degen UX." />
+  <meta name="theme-color" content="#0a0f0a" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Ronin402 — AI Agents × x402 × RWAs" />
+  <meta property="og:description" content="Autonomous agents. Programmable payments. Real world assets. All on-chain." />
+  <meta property="og:type" content="website" />
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230a0f0a'/%3E%3Ctext x='50' y='68' font-size='58' font-family='monospace' font-weight='700' text-anchor='middle' fill='%23baff29'%3ER%3C/text%3E%3C/svg%3E" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"></div>
+
+  <header class="navbar" id="navbar">
+    <div class="container navbar__inner">
+      <a class="brand" href="#top" aria-label="Ronin402 home">
+        <span class="brand__mark">R</span>
+        <span class="brand__name">RONIN<span class="brand__accent">402</span></span>
+      </a>
+
+      <nav class="nav-links" id="nav-links" aria-label="Primary">
+        <a href="#how-it-works">How it works</a>
+        <a href="#features">Features</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#security">Security</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+
+      <div class="navbar__actions">
+        <a class="btn btn--ghost" href="#docs">Docs</a>
+        <a class="btn btn--primary" href="#waitlist">Launch App</a>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="mobile-menu" id="mobile-menu" data-state="closed">
+      <a href="#how-it-works">How it works</a>
+      <a href="#features">Features</a>
+      <a href="#architecture">Architecture</a>
+      <a href="#security">Security</a>
+      <a href="#faq">FAQ</a>
+      <div class="mobile-menu__actions">
+        <a class="btn btn--ghost btn--block" href="#docs">Docs</a>
+        <a class="btn btn--primary btn--block" href="#waitlist">Launch App</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- HERO -->
+    <section class="hero" id="top">
+      <div class="container hero__inner">
+        <p class="eyebrow reveal">
+          <span class="dot-pulse" aria-hidden="true"></span>
+          Testnet live · ETH-native
+        </p>
+
+        <h1 class="hero__title reveal">
+          AI agents that <span class="text-accent">trade</span>,<br />
+          contracts that <span class="text-accent">settle</span>.
+        </h1>
+
+        <p class="hero__subtitle reveal">
+          Ronin402 gives autonomous agents a wallet, a metered pipe to pay for quotes,
+          data &amp; execution via <strong>x402</strong>, and on-chain rails that enforce limits,
+          escrow and settlement — so real-world assets can trade themselves,
+          without a human clicking "approve" every time.
+        </p>
+
+        <div class="hero__cta reveal">
+          <a class="btn btn--primary btn--lg" href="#waitlist">Get early access</a>
+          <a class="btn btn--outline btn--lg" href="#how-it-works">See how it works</a>
+        </div>
+
+        <div class="hero__badges reveal" role="list" aria-label="Core properties">
+          <span role="listitem">Permissionless</span>
+          <span class="badge-sep" aria-hidden="true">/</span>
+          <span role="listitem">Non-custodial</span>
+          <span class="badge-sep" aria-hidden="true">/</span>
+          <span role="listitem">On-chain escrow</span>
+          <span class="badge-sep" aria-hidden="true">/</span>
+          <span role="listitem">Degen-friendly</span>
+        </div>
+      </div>
+
+      <div class="hero__panel reveal" aria-hidden="true">
+        <div class="panel">
+          <div class="panel__head">
+            <span class="panel__dot panel__dot--red"></span>
+            <span class="panel__dot panel__dot--yellow"></span>
+            <span class="panel__dot panel__dot--green"></span>
+            <span class="panel__title">agent_session.log</span>
+          </div>
+          <div class="panel__body" id="terminal-body">
+            <!-- lines injected by JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LOGOS / STACK STRIP -->
+    <section class="strip" aria-label="Built on">
+      <div class="container strip__inner">
+        <span class="strip__label">Built for</span>
+        <div class="strip__items">
+          <span>Ethereum</span>
+          <span>x402 Protocol</span>
+          <span>Tokenized RWAs</span>
+          <span>ERC-20 / ERC-4626</span>
+          <span>Autonomous Agents</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="section" id="features">
+      <div class="container">
+        <div class="section__head">
+          <p class="eyebrow">Why Ronin402</p>
+          <h2>Built for agents, secured for humans</h2>
+          <p class="section__sub">
+            Four primitives that let an AI agent operate a real-world-asset strategy
+            end-to-end, while your keys — and your limits — stay yours.
+          </p>
+        </div>
+
+        <div class="grid grid--4">
+          <article class="card reveal">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M3 12h4l3 8 4-16 3 8h4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <h3>Pay-per-call via x402</h3>
+            <p>Agents pay for price quotes, market data and execution requests
+              on the fly using the x402 payment header — no subscriptions,
+              no API keys, no idle accounts.</p>
+          </article>
+
+          <article class="card reveal">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l8 4v6c0 5-3.4 8.4-8 10-4.6-1.6-8-5-8-10V6l8-4z" stroke="currentColor" stroke-width="1.75" stroke-linejoin="round"/></svg>
+            </div>
+            <h3>On-chain limits &amp; escrow</h3>
+            <p>Smart contracts hold funds in escrow and enforce spending caps,
+              slippage bounds and per-agent allowances before a single
+              settlement leg fires.</p>
+          </article>
+
+          <article class="card reveal">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M4 17l5-5-5-5M12 19h8" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <h3>Approval-free RWA trading</h3>
+            <p>Once a policy is signed, agents execute within it autonomously —
+              rebalancing, hedging and settling tokenized real-world assets
+              without a wallet pop-up for every trade.</p>
+          </article>
+
+          <article class="card reveal">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z" stroke="currentColor" stroke-width="1.75" stroke-linejoin="round"/></svg>
+            </div>
+            <h3>ETH-native, degen UX</h3>
+            <p>No permissioned onboarding, no KYC gate at the protocol layer.
+              Connect a wallet, fund a vault, set limits, and let the agent rip.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="section section--alt" id="how-it-works">
+      <div class="container">
+        <div class="section__head">
+          <p class="eyebrow">Flow</p>
+          <h2>From intent to settlement, in five hops</h2>
+          <p class="section__sub">Every trade an agent makes moves through the same
+            metered, on-chain-verified pipeline.</p>
+        </div>
+
+        <ol class="steps">
+          <li class="steps__item reveal">
+            <span class="steps__num">01</span>
+            <h3>Set the policy</h3>
+            <p>You define spending limits, allowed assets, and slippage/risk
+              bounds in a smart contract vault. You sign once.</p>
+          </li>
+          <li class="steps__item reveal">
+            <span class="steps__num">02</span>
+            <h3>Agent requests a quote</h3>
+            <p>Your agent calls a data or pricing endpoint. The server responds
+              <code>402 Payment Required</code> with an x402 payment challenge.</p>
+          </li>
+          <li class="steps__item reveal">
+            <span class="steps__num">03</span>
+            <h3>Agent pays &amp; receives data</h3>
+            <p>The agent settles the micro-payment from its operating balance
+              and receives the quote, dataset or execution route.</p>
+          </li>
+          <li class="steps__item reveal">
+            <span class="steps__num">04</span>
+            <h3>Contract checks the trade</h3>
+            <p>Before execution, the vault contract verifies the trade against
+              your limits, escrow balance and asset allowlist.</p>
+          </li>
+          <li class="steps__item reveal">
+            <span class="steps__num">05</span>
+            <h3>Settlement, on-chain</h3>
+            <p>Funds move atomically between escrow and the RWA venue.
+              The result — and the receipt — are logged on-chain.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ARCHITECTURE -->
+    <section class="section" id="architecture">
+      <div class="container">
+        <div class="section__head">
+          <p class="eyebrow">Architecture</p>
+          <h2>Three layers, one settlement path</h2>
+          <p class="section__sub">Agents never touch custody directly — every
+            action is metered by x402 and gated by the vault contract.</p>
+        </div>
+
+        <div class="diagram reveal">
+          <div class="diagram__col">
+            <div class="diagram__node">
+              <span class="diagram__tag">Off-chain</span>
+              <h4>AI Agent</h4>
+              <p>Strategy logic, market reasoning, request signing.</p>
+            </div>
+          </div>
+
+          <div class="diagram__arrow">
+            <span>x402 pay-per-call</span>
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+
+          <div class="diagram__col">
+            <div class="diagram__node">
+              <span class="diagram__tag">Metering</span>
+              <h4>x402 Facilitator</h4>
+              <p>Quotes, data feeds &amp; execution routes, billed per request.</p>
+            </div>
+          </div>
+
+          <div class="diagram__arrow">
+            <span>verify + settle</span>
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+
+          <div class="diagram__col">
+            <div class="diagram__node diagram__node--accent">
+              <span class="diagram__tag">On-chain</span>
+              <h4>Vault &amp; Escrow Contract</h4>
+              <p>Limits, allowlists, escrow, settlement, receipts.</p>
+            </div>
+          </div>
+        </div>
+
+        <p class="diagram__foot">Downstream of the vault: tokenized treasuries,
+          credit, and other RWA venues — swapped in per deployment.</p>
+      </div>
+    </section>
+
+    <!-- SECURITY -->
+    <section class="section section--alt" id="security">
+      <div class="container">
+        <div class="section__head">
+          <p class="eyebrow">Security posture</p>
+          <h2>Autonomy, bounded by design</h2>
+          <p class="section__sub">The agent can act fast because the contract
+            can't be talked out of the rules.</p>
+        </div>
+
+        <div class="grid grid--3">
+          <article class="card card--flat reveal">
+            <h3>Hard spending caps</h3>
+            <p>Per-agent, per-asset and per-period limits are enforced in the
+              vault contract, not in agent code.</p>
+          </article>
+          <article class="card card--flat reveal">
+            <h3>Non-custodial by default</h3>
+            <p>You hold the vault's admin key. Agents get scoped session
+              permissions, never withdrawal rights.</p>
+          </article>
+          <article class="card card--flat reveal">
+            <h3>Revocable, always</h3>
+            <p>Pause or revoke an agent's policy in one transaction — no
+              waiting on off-chain infrastructure.</p>
+          </article>
+          <article class="card card--flat reveal">
+            <h3>Slippage &amp; route checks</h3>
+            <p>Execution routes returned via x402 are validated on-chain
+              before funds move.</p>
+          </article>
+          <article class="card card--flat reveal">
+            <h3>On-chain receipts</h3>
+            <p>Every payment and settlement leaves an auditable, on-chain
+              trail tied to the originating policy.</p>
+          </article>
+          <article class="card card--flat reveal">
+            <h3>Independent audits</h3>
+            <p>Vault and escrow contracts are reviewed before mainnet limits
+              are raised beyond testnet caps.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section" id="faq">
+      <div class="container container--narrow">
+        <div class="section__head">
+          <p class="eyebrow">FAQ</p>
+          <h2>Questions, answered</h2>
+        </div>
+
+        <div class="accordion" id="accordion">
+          <div class="accordion__item">
+            <h3>
+              <button class="accordion__trigger" aria-expanded="false" aria-controls="faq-1" id="faq-1-trigger">
+                What is x402, in one line?
+                <svg class="accordion__chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </h3>
+            <div class="accordion__panel" id="faq-1" role="region" aria-labelledby="faq-1-trigger" hidden>
+              <p>x402 revives the HTTP <code>402 Payment Required</code> status
+                code as a machine-native payment flow, so an agent can pay for a
+                single API call — a quote, a dataset, an execution route —
+                without an account, subscription or API key.</p>
+            </div>
+          </div>
+
+          <div class="accordion__item">
+            <h3>
+              <button class="accordion__trigger" aria-expanded="false" aria-controls="faq-2" id="faq-2-trigger">
+                Who can withdraw funds from the vault?
+                <svg class="accordion__chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </h3>
+            <div class="accordion__panel" id="faq-2" role="region" aria-labelledby="faq-2-trigger" hidden>
+              <p>Only the vault owner. Agents receive scoped session
+                permissions to trade within your configured limits — they
+                are never granted withdrawal rights to arbitrary addresses.</p>
+            </div>
+          </div>
+
+          <div class="accordion__item">
+            <h3>
+              <button class="accordion__trigger" aria-expanded="false" aria-controls="faq-3" id="faq-3-trigger">
+                What counts as an RWA here?
+                <svg class="accordion__chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </h3>
+            <div class="accordion__panel" id="faq-3" role="region" aria-labelledby="faq-3-trigger" hidden>
+              <p>Any tokenized real-world asset exposed through an on-chain
+                or x402-metered venue — tokenized treasuries, credit
+                facilities, and similar instruments, depending on
+                deployment.</p>
+            </div>
+          </div>
+
+          <div class="accordion__item">
+            <h3>
+              <button class="accordion__trigger" aria-expanded="false" aria-controls="faq-4" id="faq-4-trigger">
+                Can I stop an agent mid-strategy?
+                <svg class="accordion__chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </h3>
+            <div class="accordion__panel" id="faq-4" role="region" aria-labelledby="faq-4-trigger" hidden>
+              <p>Yes. Pausing or revoking a policy is a single on-chain
+                transaction from the vault owner and takes effect
+                immediately for all future calls.</p>
+            </div>
+          </div>
+
+          <div class="accordion__item">
+            <h3>
+              <button class="accordion__trigger" aria-expanded="false" aria-controls="faq-5" id="faq-5-trigger">
+                Is this audited?
+                <svg class="accordion__chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </h3>
+            <div class="accordion__panel" id="faq-5" role="region" aria-labelledby="faq-5-trigger" hidden>
+              <p>Ronin402 is currently in testnet. Contract limits are
+                intentionally low until independent audits are complete —
+                treat mainnet usage as experimental until stated otherwise.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA / WAITLIST -->
+    <section class="section section--cta" id="waitlist">
+      <div class="container container--narrow">
+        <div class="cta-card reveal">
+          <h2>Get on the testnet waitlist</h2>
+          <p>Drop an email and we'll send access as new agent slots open up.
+            No spam, no wallet connection required to join the list.</p>
+
+          <form id="waitlist-form" class="waitlist-form" novalidate>
+            <div class="waitlist-form__row">
+              <label class="sr-only" for="email">Email address</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="you@domain.xyz"
+                autocomplete="email"
+                required
+              />
+              <button type="submit" class="btn btn--primary">Join waitlist</button>
+            </div>
+            <p class="waitlist-form__msg" id="waitlist-msg" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer" id="docs">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <a class="brand" href="#top" aria-label="Ronin402 home">
+          <span class="brand__mark">R</span>
+          <span class="brand__name">RONIN<span class="brand__accent">402</span></span>
+        </a>
+        <p>Autonomous agents. Programmable payments. Real world assets.</p>
+      </div>
+
+      <nav class="footer__col" aria-label="Product">
+        <h4>Product</h4>
+        <a href="#how-it-works">How it works</a>
+        <a href="#features">Features</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#security">Security</a>
+      </nav>
+
+      <nav class="footer__col" aria-label="Resources">
+        <h4>Resources</h4>
+        <a href="#faq">FAQ</a>
+        <a href="#waitlist">Waitlist</a>
+        <a href="https://www.x402.org/" target="_blank" rel="noopener noreferrer">x402 protocol ↗</a>
+      </nav>
+
+      <nav class="footer__col" aria-label="Community">
+        <h4>Community</h4>
+        <a href="#" rel="noopener noreferrer">X / Twitter</a>
+        <a href="#" rel="noopener noreferrer">Discord</a>
+        <a href="#" rel="noopener noreferrer">GitHub</a>
+      </nav>
+    </div>
+
+    <div class="container footer__bottom">
+      <p>© <span id="year"></span> Ronin402. Testnet software — not financial advice.</p>
+    </div>
+  </footer>
+
+  <button class="to-top" id="to-top" aria-label="Back to top" hidden>
+    <svg viewBox="0 0 24 24" fill="none"><path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+
+  <script src="assets/js/script.js"></script>
+</body>
+</html>
