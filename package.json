@@ -1,0 +1,20 @@
+{
+  "name": "ronin402",
+  "private": true,
+  "version": "0.1.0",
+  "description": "AI agents x x402 x RWAs — autonomous agent trading with on-chain escrow and settlement.",
+  "workspaces": [
+    "contracts",
+    "server",
+    "agent"
+  ],
+  "scripts": {
+    "test:contracts": "npm run test --workspace contracts",
+    "test:server": "npm run test --workspace server",
+    "test:agent": "npm run test --workspace agent",
+    "build:server": "npm run build --workspace server",
+    "build:agent": "npm run build --workspace agent",
+    "test": "npm run test:contracts && npm run test:server && npm run test:agent"
+  },
+  "license": "MIT"
+}

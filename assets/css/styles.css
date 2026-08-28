@@ -42,6 +42,12 @@
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 
+/* Any element hidden via the `hidden` attribute must stay hidden even if a
+   class on the same element sets `display` (e.g. `display: grid/flex`) —
+   without `!important` here, that class wins the cascade over the browser's
+   built-in `[hidden]` rule since both have equal specificity. */
+[hidden] { display: none !important; }
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after {

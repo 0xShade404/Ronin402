@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Vault Dashboard — Ronin402</title>
+  <meta name="description" content="Connect a wallet to load, fund, and manage a RoninVault: create agent sessions, set spending limits, revoke access, and watch on-chain settlement receipts." />
+  <meta name="theme-color" content="#0a0f0a" />
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230a0f0a'/%3E%3Ctext x='50' y='68' font-size='58' font-family='monospace' font-weight='700' text-anchor='middle' fill='%23baff29'%3ER%3C/text%3E%3C/svg%3E" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="stylesheet" href="assets/css/dashboard.css" />
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"></div>
+
+  <header class="navbar" id="navbar">
+    <div class="container navbar__inner">
+      <a class="brand" href="index.html" aria-label="Ronin402 home">
+        <span class="brand__mark">R</span>
+        <span class="brand__name">RONIN<span class="brand__accent">402</span></span>
+      </a>
+
+      <nav class="nav-links" id="nav-links" aria-label="Primary">
+        <a href="index.html#how-it-works">How it works</a>
+        <a href="index.html#architecture">Architecture</a>
+        <a href="index.html#security">Security</a>
+        <a href="dashboard.html" aria-current="page">Dashboard</a>
+      </nav>
+
+      <div class="navbar__actions">
+        <button class="btn btn--primary" id="connect-btn" type="button">Connect wallet</button>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="mobile-menu" id="mobile-menu" data-state="closed">
+      <a href="index.html#how-it-works">How it works</a>
+      <a href="index.html#architecture">Architecture</a>
+      <a href="index.html#security">Security</a>
+      <a href="dashboard.html" aria-current="page">Dashboard</a>
+      <div class="mobile-menu__actions">
+        <button class="btn btn--primary btn--block" id="connect-btn-mobile" type="button">Connect wallet</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="dash">
+    <div class="container">
+
+      <div class="dash__head reveal">
+        <div>
+          <p class="eyebrow">Vault Dashboard</p>
+          <h1 class="dash__title">Manage a RoninVault</h1>
+          <p class="section__sub">
+            Connect the wallet that owns (or is an agent on) a vault to fund it, authorize an
+            agent session with hard spending limits, and watch settlement receipts land on-chain.
+          </p>
+        </div>
+        <div class="wallet-chip" id="wallet-chip" hidden>
+          <span class="wallet-chip__dot" aria-hidden="true"></span>
+          <span id="wallet-address">—</span>
+          <span class="wallet-chip__net" id="wallet-network">—</span>
+        </div>
+      </div>
+
+      <div id="status-banner" class="status-banner" role="status" aria-live="polite" hidden></div>
+
+      <!-- Vault selector -->
+      <section class="card dash-card reveal" aria-labelledby="load-vault-heading">
+        <h2 id="load-vault-heading">Load a vault</h2>
+        <p class="dash-card__hint">Paste a deployed RoninVault address, or load one from a RoninVaultFactory.</p>
+
+        <div class="field-row">
+          <label class="sr-only" for="vault-address-input">Vault address</label>
+          <input type="text" id="vault-address-input" placeholder="0x… RoninVault address" autocomplete="off" spellcheck="false" />
+          <button class="btn btn--primary" id="load-vault-btn" type="button">Load vault</button>
+        </div>
+
+        <details class="factory-details">
+          <summary>Load from a factory instead</summary>
+          <div class="field-row">
+            <label class="sr-only" for="factory-address-input">Factory address</label>
+            <input type="text" id="factory-address-input" placeholder="0x… RoninVaultFactory address" autocomplete="off" spellcheck="false" />
+            <button class="btn btn--outline" id="list-vaults-btn" type="button">List my vaults</button>
+            <button class="btn btn--outline" id="create-vault-btn" type="button">Deploy new vault</button>
+          </div>
+          <ul class="my-vaults" id="my-vaults-list"></ul>
+        </details>
+      </section>
+
+      <!-- Vault overview -->
+      <section class="dash-grid" id="vault-panels" hidden>
+        <div class="card dash-card reveal" aria-labelledby="overview-heading">
+          <h2 id="overview-heading">Overview</h2>
+          <dl class="stat-list">
+            <div><dt>Vault</dt><dd id="stat-vault-address" class="mono">—</dd></div>
+            <div><dt>Owner</dt><dd id="stat-owner" class="mono">—</dd></div>
+            <div><dt>Your role</dt><dd id="stat-role">—</dd></div>
+            <div><dt>Status</dt><dd id="stat-status">—</dd></div>
+            <div><dt>ETH escrow</dt><dd id="stat-eth-balance">—</dd></div>
+          </dl>
+          <div class="owner-only" id="pause-controls" hidden>
+            <button class="btn btn--outline" id="pause-btn" type="button">Pause vault</button>
+            <button class="btn btn--outline" id="unpause-btn" type="button">Unpause vault</button>
+          </div>
+        </div>
+
+        <div class="card dash-card owner-only reveal" id="fund-card" hidden aria-labelledby="fund-heading">
+          <h2 id="fund-heading">Fund the vault</h2>
+          <p class="dash-card__hint">Deposit collateral the vault will escrow for agent sessions.</p>
+
+          <form id="fund-eth-form" class="stack-form">
+            <label for="fund-eth-amount">Deposit native ETH</label>
+            <div class="field-row">
+              <input type="text" id="fund-eth-amount" placeholder="Amount in ETH, e.g. 1.5" inputmode="decimal" />
+              <button class="btn btn--outline" type="submit">Send ETH</button>
+            </div>
+          </form>
+
+          <form id="fund-erc20-form" class="stack-form">
+            <label for="fund-token-address">Deposit an ERC20</label>
+            <div class="field-row field-row--wrap">
+              <input type="text" id="fund-token-address" placeholder="Token address" autocomplete="off" spellcheck="false" />
+              <input type="text" id="fund-token-amount" placeholder="Amount (human units)" inputmode="decimal" />
+              <button class="btn btn--outline" type="submit">Approve + Deposit</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="card dash-card owner-only reveal" id="withdraw-card" hidden aria-labelledby="withdraw-heading">
+          <h2 id="withdraw-heading">Withdraw</h2>
+          <p class="dash-card__hint">Owner-only. Sends funds out of escrow to any address you choose.</p>
+          <form id="withdraw-form" class="stack-form">
+            <div class="field-row field-row--wrap">
+              <input type="text" id="withdraw-token" placeholder="Token address (blank = native ETH)" autocomplete="off" spellcheck="false" />
+              <input type="text" id="withdraw-amount" placeholder="Amount (human units)" inputmode="decimal" />
+              <input type="text" id="withdraw-to" placeholder="Recipient address" autocomplete="off" spellcheck="false" />
+              <button class="btn btn--outline" type="submit">Withdraw</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="card dash-card owner-only reveal" id="create-session-card" hidden aria-labelledby="create-session-heading">
+          <h2 id="create-session-heading">Authorize a new agent session</h2>
+          <p class="dash-card__hint">Every field below becomes a hard on-chain limit the agent cannot exceed.</p>
+
+          <form id="create-session-form" class="stack-form">
+            <div class="form-grid">
+              <label>Agent address
+                <input type="text" name="agent" placeholder="0x… session key" required autocomplete="off" spellcheck="false" />
+              </label>
+              <label>Spend token
+                <input type="text" name="spendToken" placeholder="0x… (blank = native ETH)" autocomplete="off" spellcheck="false" />
+              </label>
+              <label>Max per trade
+                <input type="text" name="maxPerTx" placeholder="e.g. 100" inputmode="decimal" required />
+              </label>
+              <label>Max per period
+                <input type="text" name="maxPerPeriod" placeholder="e.g. 500" inputmode="decimal" required />
+              </label>
+              <label>Period length (hours)
+                <input type="number" name="periodHours" placeholder="24" min="1" required />
+              </label>
+              <label>Expires in (days)
+                <input type="number" name="expiryDays" placeholder="30" min="1" required />
+              </label>
+              <label class="form-grid__wide">Allowed output tokens (comma-separated)
+                <input type="text" name="outputTokens" placeholder="0xAaa..., 0xBbb..." required autocomplete="off" spellcheck="false" />
+              </label>
+              <label class="form-grid__wide">Allowed venues (comma-separated)
+                <input type="text" name="venues" placeholder="0xVenue1, 0xVenue2" required autocomplete="off" spellcheck="false" />
+              </label>
+            </div>
+            <button class="btn btn--primary" type="submit">Create session</button>
+          </form>
+        </div>
+      </section>
+
+      <!-- Sessions -->
+      <section class="card dash-card reveal" id="sessions-card" hidden aria-labelledby="sessions-heading">
+        <h2 id="sessions-heading">Sessions</h2>
+        <div class="table-scroll">
+          <table class="sessions-table" id="sessions-table">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Agent</th>
+                <th scope="col">Spend token</th>
+                <th scope="col">Per-tx cap</th>
+                <th scope="col">Period budget left</th>
+                <th scope="col">Expiry</th>
+                <th scope="col">Status</th>
+                <th scope="col" class="owner-only">Action</th>
+              </tr>
+            </thead>
+            <tbody id="sessions-tbody">
+              <tr><td colspan="8" class="empty-row">No sessions loaded yet.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Activity feed -->
+      <section class="card dash-card reveal" id="activity-card" hidden aria-labelledby="activity-heading">
+        <h2 id="activity-heading">Recent on-chain activity</h2>
+        <ul class="activity-feed" id="activity-feed">
+          <li class="empty-row">No activity yet.</li>
+        </ul>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__bottom">
+      <p>© <span id="year"></span> Ronin402. This dashboard talks directly to whatever RPC/wallet you connect — verify every contract address yourself before sending funds.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/ethers@6.17.0/dist/ethers.umd.min.js"></script>
+  <script src="assets/js/script.js"></script>
+  <script src="assets/js/dashboard.js"></script>
+</body>
+</html>
